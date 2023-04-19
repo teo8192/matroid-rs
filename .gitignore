@@ -1,0 +1,6 @@
+/target
+*.matroid
+!calculated_matroids/*.matroid
+.vscode
+*.profraw
+flamegraph.svg

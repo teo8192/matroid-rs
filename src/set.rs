@@ -148,6 +148,14 @@ impl Set {
             .filter(|i| self.contains_element(*i))
             .fold(Set::empty(), |acc, i| acc.union(&sets[i]))
     }
+
+    /// Take the kirkhoff sum, also known as the iterated symmetric difference, of the sets that
+    /// are chosen by self
+    pub fn kirkhoff_sum(&self, sets: &[Set]) -> Self {
+        (0..=self.leftmost_element())
+            .filter(|i| self.contains_element(*i))
+            .fold(Set::empty(), |acc, i| acc.symmetric_difference(&sets[i]))
+    }
 }
 
 impl Display for Set {

@@ -176,7 +176,7 @@ fn inclusion_minimal(subsets: &[Set]) -> Vec<Set> {
         .collect()
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug)]
 pub struct CombinatorialDerived {
     rank: usize,
     elements: Vec<Set>,
@@ -413,5 +413,19 @@ mod tests {
         let expected: Vec<Set> = vec![0b0111.into(), 0b1110.into(), 0b1101.into(), 0b1011.into()];
 
         assert!(contains_same_elems!(res, expected))
+    }
+
+
+    #[test]
+    fn uniform_2_6() {
+        // this matroid is fast, but has nullity 4, so there are dependent sets that are not in
+        // A_0. However, all circuits should be in A_0, so the following calculations should yield
+        // the same results
+        let matroid = UniformMatroid::new(2, 6);
+
+        let fast_calculation = CombinatorialDerived::from_fast_matroid(&matroid);
+        let non_fast_calculation = CombinatorialDerived::from_non_fast_matroid(&matroid);
+
+        assert!(fast_calculation.is_equal(&non_fast_calculation));
     }
 }

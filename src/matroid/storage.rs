@@ -13,6 +13,7 @@ use postcard::{from_bytes, to_allocvec};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, PartialEq, Eq, Debug)]
+/// A stored matroid. Has to be converted into a [`BasesMatroid`] before usage as a matroid.
 pub struct StoredMatroid {
     // The number of elements in the matroid.
     pub n: usize,
